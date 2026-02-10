@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Before You Reach Out — Read This First</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --off-black: #111;
+      --dark: #1a1a1a;
+      --red: #e63946;
+      --red-dark: #c1121f;
+      --yellow: #ffd60a;
+      --white: #f8f8f8;
+      --muted: #888;
+      --border: rgba(255,255,255,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+    }
+
+    /* ── HEADER TAPE ── */
+    .tape-top {
+      background: var(--red);
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 8px 0;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .tape-top span {
+      display: inline-block;
+      animation: ticker 18s linear infinite;
+    }
+    @keyframes ticker {
+      from { transform: translateX(100vw); }
+      to   { transform: translateX(-100%); }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      padding: 70px 40px 50px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .hero::after {
+      content: 'READ';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-12deg);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(120px, 25vw, 280px);
+      color: rgba(255,255,255,0.02);
+      pointer-events: none;
+      white-space: nowrap;
+      letter-spacing: 0.05em;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      padding: 5px 14px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      border-radius: 2px;
+      animation: pulse-badge 2s ease-in-out infinite;
+    }
+    @keyframes pulse-badge {
+      0%,100% { box-shadow: 0 0 0 0 rgba(255,214,10,0.4); }
+      50%     { box-shadow: 0 0 0 8px rgba(255,214,10,0); }
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(44px, 10vw, 96px);
+      line-height: 0.95;
+      letter-spacing: 0.03em;
+      color: var(--white);
+    }
+    .hero h1 span {
+      color: var(--red);
+      display: block;
+    }
+
+    .hero-sub {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 480px;
+      margin-inline: auto;
+      line-height: 1.6;
+    }
+
+    /* ── RULES SECTION ── */
+    .rules-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--red);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 2px;
+    }
+
+    .rule-card {
+      background: var(--dark);
+      padding: 28px 30px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .rule-card:hover {
+      background: #1f1f1f;
+      border-color: rgba(255,255,255,0.14);
+    }
+    .rule-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--red);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.3s ease;
+    }
+    .rule-card:hover::before {
+      transform: scaleY(1);
+    }
+
+    .rule-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      color: rgba(255,255,255,0.06);
+      line-height: 1;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    .rule-icon {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .rule-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--yellow);
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .rule-desc {
+      font-size: 0.9rem;
+      color: #aaa;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+    .rule-desc strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      max-width: 900px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .divider span {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .cta-card {
+      background: var(--dark);
+      border: 1px solid var(--border);
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-card::after {
+      content: '→';
+      position: absolute;
+      right: 40px;
+      bottom: 30px;
+      font-size: 5rem;
+      color: rgba(255,255,255,0.03);
+      font-family: 'Bebas Neue', sans-serif;
+    }
+
+    .cta-card h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      color: var(--white);
+    }
+    .cta-card h2 span { color: var(--red); }
+
+    .cta-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      max-width: 460px;
+      line-height: 1.6;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--red);
+      color: var(--white);
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      font-weight: 700;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.1);
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+    }
+    .cta-btn:hover::before { transform: translateX(0); }
+    .cta-btn:hover {
+      background: var(--red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(230, 57, 70, 0.35);
+    }
+    .cta-btn:active { transform: translateY(0); }
+
+    .cta-arrow {
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+    .cta-btn:hover .cta-arrow { transform: translateX(4px); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: #555;
+      letter-spacing: 0.1em;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    footer span { color: var(--red); }
+
+    /* ── ANIMATIONS ON LOAD ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+    .fade-up:nth-child(1) { animation-delay: 0.1s; }
+    .fade-up:nth-child(2) { animation-delay: 0.2s; }
+    .fade-up:nth-child(3) { animation-delay: 0.3s; }
+    .fade-up:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .rule-card {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.5s ease forwards;
+    }
+    .rule-card:nth-child(1) { animation-delay: 0.35s; }
+    .rule-card:nth-child(2) { animation-delay: 0.45s; }
+    .rule-card:nth-child(3) { animation-delay: 0.55s; }
+    .rule-card:nth-child(4) { animation-delay: 0.65s; }
+
+    /* ── SUPER IMPORTANT SECTION ── */
+    .urgent-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .urgent-card {
+      background: linear-gradient(135deg, #1a0a0b 0%, #1a1a1a 100%);
+      border: 1px solid rgba(230, 57, 70, 0.3);
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .urgent-card::before {
+      content: '!';
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10rem;
+      color: rgba(230, 57, 70, 0.04);
+      line-height: 1;
+    }
+    .urgent-card h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      color: var(--white);
+    }
+    .urgent-card h2 span { color: var(--red); }
+    .urgent-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      max-width: 460px;
+      line-height: 1.6;
+    }
+    .urgent-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-yes {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--red);
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-yes:hover {
+      background: var(--red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(230, 57, 70, 0.4);
+    }
+    .btn-no {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .btn-no:hover {
+      border-color: rgba(255,255,255,0.25);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(6px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal-box {
+      background: #141414;
+      border: 1px solid rgba(255,255,255,0.1);
+      max-width: 520px;
+      width: 100%;
+      padding: 40px;
+      position: relative;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.open .modal-box {
+      transform: translateY(0) scale(1);
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 20px;
+      background: none; border: none;
+      color: var(--muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--white); }
+
+    .modal-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--red);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+    .modal-sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .modal-sub strong { color: var(--white); }
+
+    .mail-compose {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .mail-field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .mail-field label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #666;
+    }
+    .mail-field input,
+    .mail-field textarea {
+      background: #1e1e1e;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      padding: 12px 14px;
+      outline: none;
+      resize: none;
+      transition: border-color 0.2s;
+    }
+    .mail-field input:focus,
+    .mail-field textarea:focus {
+      border-color: rgba(230,57,70,0.5);
+    }
+    .mail-field input::placeholder,
+    .mail-field textarea::placeholder { color: #444; }
+
+    .btn-send {
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 14px;
+      cursor: pointer;
+      font-weight: 700;
+      margin-top: 4px;
+      transition: background 0.2s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .btn-send:hover {
+      background: var(--red-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ── GOODBYE OVERLAY ── */
+    .goodbye-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 20000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    .goodbye-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .goodbye-big {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(60px, 15vw, 140px);
+      letter-spacing: 0.06em;
+      line-height: 0.9;
+      text-align: center;
+      animation: glitch 1.5s linear infinite;
+    }
+    .goodbye-big span { color: var(--red); }
+    .goodbye-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .goodbye-emoji {
+      font-size: 3rem;
+      animation: wave 1s ease-in-out 3;
+    }
+    @keyframes wave {
+      0%,100% { transform: rotate(0deg); }
+      25%      { transform: rotate(20deg); }
+      75%      { transform: rotate(-10deg); }
+    }
+    @keyframes glitch {
+      0%,95%,100% { text-shadow: none; transform: none; }
+      96% { text-shadow: 2px 0 var(--red); transform: translateX(-2px); }
+      97% { text-shadow: -2px 0 #0ff; transform: translateX(2px); }
+      98% { text-shadow: none; transform: none; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero { padding: 50px 20px 40px; }
+      .rules-grid { grid-template-columns: 1fr; }
+      .cta-card { padding: 32px 24px; }
+      .urgent-card { padding: 32px 24px; }
+      footer { justify-content: center; text-align: center; }
+      .modal-box { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TICKER TAPE -->
+  <div class="tape-top">
+    <span>⚠ READ BEFORE YOU REACH OUT &nbsp;&nbsp;&nbsp; · &nbsp;&nbsp;&nbsp; YOUR CALL CAN WAIT &nbsp;&nbsp;&nbsp; · &nbsp;&nbsp;&nbsp; RESPECT BOUNDARIES = BETTER WORK &nbsp;&nbsp;&nbsp; · &nbsp;&nbsp;&nbsp; NO CALLS AFTER 7 PM &nbsp;&nbsp;&nbsp; · &nbsp;&nbsp;&nbsp; CHECK THE SHEET FIRST &nbsp;&nbsp;&nbsp; · &nbsp;&nbsp;&nbsp; ⚠ READ BEFORE YOU REACH OUT &nbsp;&nbsp;&nbsp; · &nbsp;&nbsp;&nbsp; YOUR CALL CAN WAIT &nbsp;&nbsp;&nbsp; · &nbsp;&nbsp;&nbsp; RESPECT BOUNDARIES = BETTER WORK &nbsp;&nbsp;&nbsp; · &nbsp;&nbsp;&nbsp; NO CALLS AFTER 7 PM &nbsp;&nbsp;&nbsp; · &nbsp;&nbsp;&nbsp; CHECK THE SHEET FIRST &nbsp;&nbsp;&nbsp; ·</span>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="badge fade-up">⚡ Mandatory Reading</div>
+    <h1 class="fade-up">
+      Before You<br/>
+      <span>Reach Out</span>
+    </h1>
+    <p class="hero-sub fade-up">
+      A few simple rules that keep things professional,
+      respectful, and honestly — sane for everyone involved.
+    </p>
+  </header>
+
+  <!-- RULES -->
+  <section class="rules-section">
+    <div class="section-label">Ground Rules · Non-Negotiable</div>
+
+    <div class="rules-grid">
+
+      <div class="rule-card">
+        <span class="rule-num">01</span>
+        <span class="rule-icon">🌙</span>
+        <div class="rule-title">No Calls After 7 PM</div>
+        <p class="rule-desc">
+          After <strong>7:00 PM</strong> is off-limits. The work day ends.
+          Personal time is not an extension of office hours.
+          If it can't wait until morning, it probably could've been sorted earlier.
+        </p>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-num">02</span>
+        <span class="rule-icon">🏖️</span>
+        <div class="rule-title">On Leave = Unavailable</div>
+        <p class="rule-desc">
+          If I'm on leave, I am <strong>not available</strong>. Period.
+          Leave exists for a reason. Unless there's a genuine emergency
+          that cannot be handled by anyone else — please don't call.
+        </p>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-num">03</span>
+        <span class="rule-icon">🚨</span>
+        <div class="rule-title">Emergencies Only</div>
+        <p class="rule-desc">
+          On leave? Ask yourself honestly: <strong>Is this a true emergency?</strong>
+          Can someone else handle it? Can it wait until I'm back?
+          If the answer to any of these is yes — it's not an emergency.
+        </p>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-num">04</span>
+        <span class="rule-icon">⏱️</span>
+        <div class="rule-title">Wrap Up Before 7 PM</div>
+        <p class="rule-desc">
+          If you need to <strong>discuss any work</strong>, please plan it during working hours.
+          All conversations, decisions, and follow-ups should ideally
+          be wrapped before 7:00 PM. Plan ahead — it works better for everyone.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"><span>Got it? Good. Now here's what you actually came for.</span></div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-card">
+      <div class="section-label" style="margin-bottom: 0;">Work Updates</div>
+      <h2>Check Work <span>Status</span><br/>or Assign New Work</h2>
+      <p>
+        All work updates, task assignments, and progress tracking
+        live in the shared sheet. Check here before sending a message or making a call.
+        Chances are — the answer is already there.
+      </p>
+      <a class="cta-btn"
+         href="https://docs.google.com/spreadsheets/d/1bG37fEyl8ZJ1K5T2ghOAq3AUSI3CHhTOXVPMopnI-M4/edit?usp=sharing"
+         target="_blank"
+         rel="noopener noreferrer">
+        Open Work Sheet <span class="cta-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- SUPER IMPORTANT MESSAGE -->
+  <div class="divider" style="margin-top: 0;"><span>Still need to reach out?</span></div>
+
+  <section class="urgent-section">
+    <div class="urgent-card">
+      <div class="section-label" style="margin-bottom: 0;">Direct Contact</div>
+      <h2>Is It <span>Super</span><br/>Important?</h2>
+      <p>
+        Before you reach out directly — be honest with yourself.
+        Does this truly need my immediate attention, or can it wait?
+        Choose wisely.
+      </p>
+      <div class="urgent-btns">
+        <button class="btn-yes" onclick="openMailModal()">
+          ✅ Yes, It's Urgent
+        </button>
+        <button class="btn-no" onclick="openGoodbye()">
+          👋 Nah, Never Mind
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>READ THE RULES. RESPECT THE BOUNDARIES.</div>
+    <div>AFTER <span>7 PM</span> = NOT YOUR TIME</div>
+  </footer>
+
+  <!-- ── MAIL MODAL ── -->
+  <div class="modal-overlay" id="mailModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeMailModal()">✕</button>
+      <div class="modal-tag">🚨 Urgent Message</div>
+      <div class="modal-title">Compose Your<br/>Message</div>
+      <p class="modal-sub">
+        Sending to <strong>furkan.khan@timesinternet.in</strong><br/>
+        Keep it concise. If it's really urgent, make it count.
+      </p>
+      <div class="mail-compose">
+        <div class="mail-field">
+          <label>Your Name</label>
+          <input type="text" id="senderName" placeholder="Who's this from?" />
+        </div>
+        <div class="mail-field">
+          <label>Subject</label>
+          <input type="text" id="mailSubject" placeholder="What's the urgency?" />
+        </div>
+        <div class="mail-field">
+          <label>Message</label>
+          <textarea id="mailBody" rows="5" placeholder="Explain why this couldn't wait..."></textarea>
+        </div>
+        <a id="sendMailBtn" class="btn-send" href="#" onclick="sendMail(event)">
+          Send Now →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GOODBYE OVERLAY ── -->
+  <div class="goodbye-overlay" id="goodbyeOverlay">
+    <div class="goodbye-emoji">👋</div>
+    <div class="goodbye-big">Good<br/><span>Bye!</span></div>
+    <div class="goodbye-sub">Smart choice. See you during working hours.</div>
+  </div>
+
+  <script>
+    function openMailModal() {
+      document.getElementById('mailModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMailModal() {
+      document.getElementById('mailModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function sendMail(e) {
+      e.preventDefault();
+      const name    = document.getElementById('senderName').value.trim();
+      const subject = document.getElementById('mailSubject').value.trim();
+      const body    = document.getElementById('mailBody').value.trim();
+
+      const to      = 'furkan.khan@timesinternet.in';
+      const subLine = subject || 'Urgent Message';
+      const bodyFull = (name ? `From: ${name}\n\n` : '') + (body || '(No message body)');
+
+      const mailto = `mailto:${to}?subject=${encodeURIComponent(subLine)}&body=${encodeURIComponent(bodyFull)}`;
+      window.location.href = mailto;
+    }
+
+    function openGoodbye() {
+      const overlay = document.getElementById('goodbyeOverlay');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        try { window.close(); } catch(e) {}
+        // Fallback if window.close() is blocked
+        overlay.innerHTML = `
+          <div style="font-size:3rem">👋</div>
+          <div class="goodbye-big">Good<br/><span>Bye!</span></div>
+          <div class="goodbye-sub">Smart choice. See you during working hours.</div>
+          <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:#444;margin-top:20px;letter-spacing:0.15em;">YOU MAY CLOSE THIS TAB NOW</div>
+        `;
+      }, 2200);
+    }
+
+    // Close modal on overlay click
+    document.getElementById('mailModal').addEventListener('click', function(e) {
+      if (e.target === this) closeMailModal();
+    });
+  </script>
+
+</body>
+</html>
