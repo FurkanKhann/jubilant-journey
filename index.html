@@ -437,6 +437,7 @@
       <div class="prog-step" id="ps0"></div>
       <div class="prog-step" id="ps1"></div>
       <div class="prog-step" id="ps2"></div>
+      <div class="prog-step" id="ps3"></div>
     </div>
   </div>
 
@@ -462,7 +463,7 @@
     <div class="gate-header">
       <div class="eyebrow">Before You Contact Me</div>
       <h2>Read Every<br/><span>Rule First</span></h2>
-      <p>Click each card to acknowledge it. The emergency gate opens only after all three are confirmed.</p>
+      <p>Click each card to acknowledge it. The emergency gate opens only after all four are confirmed.</p>
     </div>
 
     <div class="steps">
@@ -474,7 +475,7 @@
           <div>
             <div class="step-num">Rule 01 · Click to confirm</div>
             <div class="step-title">No Calls After 7 PM</div>
-            <div class="step-desc">After 7:00 PM is personal time — it is completely off limits. I will not pick up. Don't even try unless something is actively burning.</div>
+            <div class="step-desc">After 7:00 PM is off-limits. The work day ends. Personal time is not an extension of office hours. If it can't wait until morning, it probably could've been sorted earlier.</div>
           </div>
           <div class="step-check">✓</div>
         </div>
@@ -483,11 +484,11 @@
       <!-- RULE 2 -->
       <div class="step-card" data-id="1" onclick="acknowledge(this,event)">
         <div class="step-inner">
-          <div class="step-icon">⏱️</div>
+          <div class="step-icon">🏖️</div>
           <div>
             <div class="step-num">Rule 02 · Click to confirm</div>
-            <div class="step-title">Discussions End Before 7 PM</div>
-            <div class="step-desc">All work conversations, decisions, and follow-ups must be wrapped up before 7:00 PM. Plan ahead — last minute is your problem, not mine.</div>
+            <div class="step-title">On Leave = Unavailable</div>
+            <div class="step-desc">If I'm on leave, I am not available. Period. Leave exists for a reason. Unless there's a genuine emergency that cannot be handled by anyone else — please don't call.</div>
           </div>
           <div class="step-check">✓</div>
         </div>
@@ -496,11 +497,24 @@
       <!-- RULE 3 -->
       <div class="step-card" data-id="2" onclick="acknowledge(this,event)">
         <div class="step-inner">
-          <div class="step-icon">🏖️</div>
+          <div class="step-icon">🚨</div>
           <div>
             <div class="step-num">Rule 03 · Click to confirm</div>
-            <div class="step-title">On Leave = Do Not Disturb</div>
-            <div class="step-desc">If I'm on leave, I'm unavailable. No calls, no messages. Leave exists for a reason. Respect it unless no one else on the planet can help.</div>
+            <div class="step-title">Emergencies Only</div>
+            <div class="step-desc">On leave? Ask yourself honestly: Is this a true emergency? Can someone else handle it? Can it wait until I'm back? If the answer to any of these is yes — it's not an emergency.</div>
+          </div>
+          <div class="step-check">✓</div>
+        </div>
+      </div>
+
+      <!-- RULE 4 -->
+      <div class="step-card" data-id="3" onclick="acknowledge(this,event)">
+        <div class="step-inner">
+          <div class="step-icon">⏱️</div>
+          <div>
+            <div class="step-num">Rule 04 · Click to confirm</div>
+            <div class="step-title">Wrap Up Before 7 PM</div>
+            <div class="step-desc">If you need to discuss any work, please plan it during working hours. All conversations, decisions, and follow-ups should ideally be wrapped before 7:00 PM. Plan ahead — it works better for everyone.</div>
           </div>
           <div class="step-check">✓</div>
         </div>
@@ -512,7 +526,7 @@
       <!-- RULE 4: EMERGENCY GATE (no acknowledge — direct yes/no) -->
       <div class="emergency-card" id="emergencyCard">
         <div class="emg-inner">
-          <div class="emg-tag">🚨 Final Check · Unlocks after rules 01–03</div>
+          <div class="emg-tag">🚨 Final Check · Unlocks after rules 01–04</div>
           <div class="emg-heading">Is This a<br/><span>Real Emergency?</span></div>
           <p class="emg-desc">
             Be <strong>brutally honest</strong> with yourself right now.<br/>
@@ -527,7 +541,7 @@
       </div>
 
       <div class="locked-hint" id="lockedHint">
-        ↑ acknowledge all 3 rules above to unlock this
+        ↑ acknowledge all 4 rules above to unlock this
       </div>
 
     </div><!-- /steps -->
@@ -568,7 +582,7 @@
 
   <script>
     const done  = new Set();
-    const TOTAL = 3;
+    const TOTAL = 4;
 
     function acknowledge(card, e) {
       if (card.classList.contains('done')) return;
